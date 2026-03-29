@@ -15,7 +15,7 @@ import json
 import random
 from datetime import datetime, timedelta
 
-APP_URL = "https://letterforge.vercel.app"
+APP_URL = "https://coverletter-ai.vercel.app"
 APP_NAME = "LetterForge"
 
 # Subreddits to monitor for cover letter questions

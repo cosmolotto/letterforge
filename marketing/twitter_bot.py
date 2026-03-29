@@ -14,7 +14,7 @@ import tweepy
 import random
 from datetime import datetime
 
-APP_URL = "https://letterforge.vercel.app"
+APP_URL = "https://coverletter-ai.vercel.app"
 
 DAILY_TIPS = [
     "Cover letter tip: Never open with 'I am writing to express my interest in...' — hiring managers read 50 of these a day. Open with your strongest achievement instead. 🎯",
