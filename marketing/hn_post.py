@@ -14,7 +14,7 @@ import argparse
 import urllib.parse
 import webbrowser
 
-APP_URL = "https://letterforge.vercel.app"
+APP_URL = "https://coverletter-ai.vercel.app"
 
 TITLE = "Show HN: LetterForge – AI cover letter generator that tailors to each job (free, client-side)"
 
