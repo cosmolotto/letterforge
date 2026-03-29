@@ -370,6 +370,7 @@ footer{border-top:1px solid var(--border);padding:40px max(24px,5vw);background:
           <li>Word doc export</li>
         </ul>
         <a href="https://gumroad.com/l/letterforge-pro" target="_blank" rel="noopener" class="btn-price btn-price-light">Buy Now</a>
+        <button class="btn-price" onclick="payWithMrv('pro',35)" style="margin-top:8px;background:rgba(224,200,117,0.12);color:#e0c875;border:1px solid rgba(224,200,117,0.3);border-radius:8px;padding:10px;font-size:.8rem;cursor:pointer">◈ Pay 35 MRV instead</button>
       </div>
       <div class="price-card">
         <div class="price-tier">Unlimited</div>
@@ -382,6 +383,7 @@ footer{border-top:1px solid var(--border);padding:40px max(24px,5vw);background:
           <li>LinkedIn message gen</li>
         </ul>
         <a href="https://gumroad.com/l/letterforge-unlimited" target="_blank" rel="noopener" class="btn-price btn-price-dark">Subscribe</a>
+        <button class="btn-price" onclick="payWithMrv('unlimited',95)" style="margin-top:8px;background:rgba(224,200,117,0.08);color:#e0c875;border:1px solid rgba(224,200,117,0.2);border-radius:8px;padding:10px;font-size:.8rem;cursor:pointer">◈ Pay 95 MRV / month</button>
       </div>
     </div>
   </div>
@@ -686,6 +688,29 @@ window.addEventListener('load', () => {
   const saved = localStorage.getItem('lf_key');
   if (saved) document.getElementById('api-key').value = saved;
 });
+</script>
+<!-- MorvenWallet SDK -->
+<script src="https://morven-sdk.vercel.app/morven.js"></script>
+<script>
+async function payWithMrv(plan, amount) {
+  try {
+    const result = await morvenWallet.login();
+    const bal = await morvenWallet.getBalance(result.jwt);
+    if (bal.mrv < amount) {
+      alert(`Insufficient MRV balance.\nYou have ${bal.mrv.toFixed(2)} MRV, need ${amount} MRV.\n\nEarn MRV by playing games on Arcade Vault or using other Morven Empire apps.`);
+      return;
+    }
+    if (!confirm(`Pay ${amount} MRV for LetterForge ${plan.charAt(0).toUpperCase()+plan.slice(1)}?\n\nBalance after: ${(bal.mrv - amount).toFixed(2)} MRV`)) return;
+    const tx = await morvenWallet.pay(result.jwt, amount, 'letterforge-' + plan);
+    if (tx.success) {
+      localStorage.setItem('lf_mrv_plan', plan);
+      localStorage.setItem('lf_mrv_tx', tx.tx_id);
+      alert(`✅ Payment successful!\nTX: ${tx.tx_id}\nRemaining balance: ${tx.new_balance.toFixed(2)} MRV\n\nYour ${plan} access is now active.`);
+    }
+  } catch(e) {
+    alert('MRV payment failed: ' + e.message);
+  }
+}
 </script>
 </body>
 </html>
