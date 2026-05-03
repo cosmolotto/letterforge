@@ -1,0 +1,8 @@
+{
+  "appId": "com.morven.letterforge",
+  "appName": "LetterForge — AI Cover Letters",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

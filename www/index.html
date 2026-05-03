@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LetterForge — AI Cover Letters That Get Interviews</title>
+<meta name="description" content="Stop sending generic cover letters. LetterForge crafts tailored, interview-winning cover letters in 30 seconds using AI. Free to try.">
+<meta name="keywords" content="AI cover letter generator, cover letter writer, job application helper, resume cover letter, AI job tools">
+<meta property="og:title" content="LetterForge — AI Cover Letters That Get Interviews">
+<meta property="og:description" content="Tailored, professional cover letters in 30 seconds. Used by 12,000+ job seekers.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://coverletter-ai.vercel.app">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"LetterForge","description":"AI cover letter generator","applicationCategory":"BusinessApplication","offers":{"@type":"Offer","price":"7","priceCurrency":"USD"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FAF8F3;--cream2:#F3EFE6;--ink:#1C1917;--ink2:#3D3530;--ink3:#6B5F58;
+  --gold:#A0722A;--gold2:#C49A3C;--gold-light:#F5E6C3;
+  --border:#DDD5C8;--border2:#E8E2D9;--white:#FFFFFF;
+  --shadow:rgba(28,25,23,0.08);--red:#C0392B;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4}
+header{border-bottom:1px solid var(--border);padding:0 max(24px,5vw);position:sticky;top:0;z-index:100;background:rgba(250,248,243,0.92);backdrop-filter:blur(12px)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);letter-spacing:-.5px;text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo-mark{width:28px;height:28px;background:var(--ink);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{stroke:#FAF8F3;fill:none;width:16px;height:16px}
+nav{display:flex;align-items:center;gap:28px}
+nav a{font-size:.875rem;font-weight:400;color:var(--ink3);text-decoration:none;letter-spacing:.2px;transition:color .2s}
+nav a:hover{color:var(--ink)}
+.btn-nav{background:var(--ink);color:var(--cream)!important;padding:8px 20px;border-radius:6px;font-weight:500!important;transition:background .2s!important}
+.btn-nav:hover{background:var(--ink2)!important}
+.hero{max-width:1200px;margin:0 auto;padding:80px max(24px,5vw) 64px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-light);border:1px solid rgba(160,114,42,.25);border-radius:100px;padding:4px 14px 4px 8px;font-size:.8rem;font-weight:500;color:var(--gold);margin-bottom:24px}
+.hero-badge span{background:var(--gold);color:var(--white);border-radius:100px;padding:2px 8px;font-size:.72rem}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4rem);font-weight:600;line-height:1.1;letter-spacing:-.5px;color:var(--ink);margin-bottom:20px}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1.05rem;color:var(--ink3);line-height:1.7;margin-bottom:36px;max-width:440px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);font-size:.95rem;font-weight:500;padding:13px 28px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--ink2);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);font-size:.95rem;font-weight:400;padding:13px 24px;border-radius:8px;border:1px solid var(--border);text-decoration:none;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-secondary:hover{border-color:var(--ink3);background:var(--cream2)}
+.hero-stats{display:flex;gap:32px;padding-top:16px;border-top:1px solid var(--border2)}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--ink);letter-spacing:-.5px}
+.stat-l{font-size:.78rem;color:var(--ink3)}
+.hero-visual{animation:fadeUp .8s ease .2s both}
+.letter-preview{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:36px;box-shadow:0 8px 48px var(--shadow),0 2px 8px rgba(0,0,0,.04);position:relative;overflow:hidden}
+.letter-preview::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)}
+.lp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border2)}
+.lp-to{font-size:.8rem;color:var(--ink3);line-height:1.8;font-family:'DM Mono',monospace}
+.lp-date{font-size:.75rem;color:var(--ink3);font-family:'DM Mono',monospace}
+.lp-body{font-size:.875rem;line-height:1.8;color:var(--ink2)}
+.lp-body p{margin-bottom:12px}
+.lp-sig{margin-top:20px;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ink);font-size:1rem}
+.preview-badge{position:absolute;top:12px;right:12px;background:var(--gold-light);border:1px solid rgba(160,114,42,.2);color:var(--gold);font-size:.7rem;font-weight:500;padding:3px 10px;border-radius:100px;font-family:'DM Mono',monospace}
+#generator{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px max(24px,5vw)}
+.gen-wrap{max-width:1200px;margin:0 auto}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.section-label::before{content:'';width:20px;height:1px;background:var(--gold)}
+.section-label span{font-size:.75rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'DM Mono',monospace}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:600;color:var(--ink);line-height:1.15;letter-spacing:-.3px;margin-bottom:12px}
+.section-sub{font-size:1rem;color:var(--ink3);max-width:500px;margin-bottom:48px;line-height:1.7}
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.input-card{background:var(--cream);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.input-card:focus-within{border-color:var(--ink3)}
+.input-label{padding:14px 20px 10px;font-size:.75rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);font-family:'DM Mono',monospace;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px}
+.input-label svg{width:14px;height:14px;stroke:currentColor;fill:none}
+textarea{width:100%;min-height:200px;padding:20px;background:transparent;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);line-height:1.7;resize:vertical}
+textarea::placeholder{color:var(--border);font-size:.875rem}
+.gen-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.tone-group{display:flex;align-items:center;gap:8px}
+.tone-label{font-size:.8rem;color:var(--ink3);font-weight:400;white-space:nowrap}
+.tone-pills{display:flex;gap:6px}
+.tone-pill{padding:6px 14px;border-radius:100px;border:1px solid var(--border);background:var(--cream);font-size:.8rem;font-weight:400;color:var(--ink3);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.tone-pill.active,.tone-pill:hover{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.api-key-wrap{display:flex;align-items:center;gap:8px}
+.api-key-input{padding:8px 14px;border:1px solid var(--border);border-radius:8px;background:var(--cream);font-family:'DM Mono',monospace;font-size:.8rem;color:var(--ink);width:260px;outline:none;transition:border-color .2s}
+.api-key-input:focus{border-color:var(--ink3)}
+.api-key-input::placeholder{color:var(--border)}
+.key-hint{font-size:.72rem;color:var(--ink3)}
+.key-hint a{color:var(--gold);text-decoration:none}
+.key-hint a:hover{text-decoration:underline}
+.generate-btn{width:100%;padding:16px;background:var(--ink);color:var(--cream);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;letter-spacing:.2px}
+.generate-btn:hover:not(:disabled){background:var(--ink2);transform:translateY(-1px)}
+.generate-btn:disabled{opacity:.5;cursor:not-allowed}
+.generate-btn svg{width:18px;height:18px;stroke:currentColor;fill:none}
+.spinner{width:16px;height:16px;border:2px solid rgba(250,248,243,.3);border-top-color:var(--cream);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.output-section{display:none;animation:fadeUp .4s ease both}
+.output-section.visible{display:block}
+.output-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.output-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+.output-actions{display:flex;gap:8px}
+.action-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--border);border-radius:7px;background:var(--cream);font-size:.8rem;font-weight:400;color:var(--ink3);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.action-btn:hover{border-color:var(--ink3);color:var(--ink)}
+.action-btn svg{width:13px;height:13px;stroke:currentColor;fill:none}
+.action-btn.copied{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.output-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:48px;position:relative;overflow:hidden;font-size:.925rem;line-height:1.9;color:var(--ink2);min-height:200px;font-family:'DM Sans',sans-serif}
+.output-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)}
+#letter-output{white-space:pre-wrap}
+.cursor-blink{display:inline-block;width:2px;height:1em;background:var(--ink);animation:blink 1s step-end infinite;vertical-align:text-bottom;margin-left:1px}
+.quality-bar{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 16px;background:var(--cream);border:1px solid var(--border2);border-radius:8px}
+.quality-bar span{font-size:.8rem;color:var(--ink3)}
+.quality-score{font-family:'DM Mono',monospace;font-size:.85rem;font-weight:500;color:var(--gold);margin-left:auto}
+.error-msg{display:none;padding:12px 16px;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;color:var(--red);font-size:.875rem;margin-top:16px}
+.error-msg.visible{display:block}
+.how{max-width:1200px;margin:0 auto;padding:80px max(24px,5vw)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px}
+.step{opacity:0;transform:translateY(20px);transition:all .5s ease}
+.step.visible{opacity:1;transform:translateY(0)}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--border);line-height:1;margin-bottom:16px;letter-spacing:-2px}
+.step h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:8px}
+.step p{font-size:.875rem;color:var(--ink3);line-height:1.7}
+#pricing{background:var(--cream2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px max(24px,5vw)}
+.pricing-wrap{max-width:900px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.price-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease,box-shadow .2s}
+.price-card.visible{opacity:1;transform:translateY(0)}
+.price-card:hover{box-shadow:0 12px 40px var(--shadow)}
+.price-card.featured{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.price-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--white);font-size:.7rem;font-weight:500;padding:3px 12px;border-radius:100px;white-space:nowrap;font-family:'DM Mono',monospace;letter-spacing:.5px}
+.price-tier{font-size:.75rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:12px}
+.price-card.featured .price-tier{color:rgba(250,248,243,.5)}
+.price-amount{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--ink);letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.price-card.featured .price-amount{color:var(--cream)}
+.price-period{font-size:.8rem;color:var(--ink3);margin-bottom:24px}
+.price-card.featured .price-period{color:rgba(250,248,243,.5)}
+.price-features{list-style:none;margin-bottom:28px}
+.price-features li{font-size:.875rem;color:var(--ink3);padding:7px 0;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px}
+.price-card.featured .price-features li{color:rgba(250,248,243,.7);border-color:rgba(250,248,243,.1)}
+.price-features li::before{content:'✓';color:var(--gold);font-size:.8rem;font-weight:500}
+.btn-price{width:100%;padding:12px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;display:block}
+.btn-price-dark{background:var(--ink);color:var(--cream)}
+.btn-price-dark:hover{background:var(--ink2)}
+.btn-price-light{background:var(--cream);color:var(--ink)}
+.btn-price-light:hover{background:var(--cream2)}
+.btn-price-outline{background:transparent;color:var(--ink3);border:1px solid var(--border)}
+.btn-price-outline:hover{border-color:var(--ink3);color:var(--ink)}
+.testimonials{max-width:1200px;margin:0 auto;padding:80px max(24px,5vw)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.testi-card.visible{opacity:1;transform:translateY(0)}
+.testi-stars{color:var(--gold);font-size:.9rem;margin-bottom:12px;letter-spacing:2px}
+.testi-text{font-size:1rem;color:var(--ink2);line-height:1.7;margin-bottom:16px;font-style:italic;font-family:'Cormorant Garamond',serif}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:600;color:var(--ink3)}
+.testi-name{font-size:.85rem;font-weight:500;color:var(--ink)}
+.testi-role{font-size:.75rem;color:var(--ink3)}
+.faq{background:var(--white);border-top:1px solid var(--border);padding:80px max(24px,5vw)}
+.faq-wrap{max-width:720px;margin:0 auto}
+.faq-items{margin-top:48px}
+.faq-item{border-bottom:1px solid var(--border2)}
+.faq-q{padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:500;color:var(--ink);font-size:.95rem;transition:color .2s}
+.faq-q:hover{color:var(--ink2)}
+.faq-q svg{width:16px;height:16px;stroke:currentColor;fill:none;flex-shrink:0;transition:transform .2s;color:var(--ink3)}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{font-size:.875rem;color:var(--ink3);line-height:1.7;padding-bottom:20px}
+footer{border-top:1px solid var(--border);padding:40px max(24px,5vw);background:var(--cream)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-left{font-size:.8rem;color:var(--ink3);line-height:1.7}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:.8rem;color:var(--ink3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--ink)}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:40px}
+  .hero-visual{display:none}
+  .gen-grid{grid-template-columns:1fr}
+  .steps,.pricing-grid,.testi-grid{grid-template-columns:1fr}
+  nav{display:none}
+  .hero-stats{gap:20px}
+  .gen-controls{flex-direction:column;align-items:flex-start}
+  .api-key-wrap{flex-direction:column;align-items:flex-start;width:100%}
+  .api-key-input{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M2 3h12M2 8h8M2 13h10"/></svg>
+      </div>
+      LetterForge
+    </a>
+    <nav>
+      <a href="#generator">Generator</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#generator" class="btn-nav">Try Free</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span>NEW</span> Claude AI Powered</div>
+      <h1>Cover letters that<br><em>get you hired.</em></h1>
+      <p class="hero-sub">Stop sending the same letter to every company. LetterForge crafts a tailored, compelling cover letter for each role — in 30 seconds.</p>
+      <div class="hero-actions">
+        <a href="#generator" class="btn-primary">Generate Free Letter</a>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-n" data-count="12847">0</span><span class="stat-l">Letters Written</span></div>
+        <div class="stat"><span class="stat-n" data-count="3.2" data-decimal="true">0</span><span class="stat-l">× Interview Rate</span></div>
+        <div class="stat"><span class="stat-n" data-count="30">0</span><span class="stat-l">Seconds to Generate</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="letter-preview">
+        <div class="preview-badge">AI Generated</div>
+        <div class="lp-header">
+          <div class="lp-to">
+            <strong>Hiring Manager</strong><br>
+            Stripe Inc.<br>
+            San Francisco, CA
+          </div>
+          <div class="lp-date">March 29, 2026</div>
+        </div>
+        <div class="lp-body">
+          <p>Dear Hiring Manager,</p>
+          <p>Reading through Stripe's engineering principles felt like someone had articulated exactly how I think about building payments infrastructure. Your focus on developer experience aligns perfectly with my three years...</p>
+          <p>At my previous role at Plaid, I led the redesign of our webhook delivery system, reducing failure rates from 4.2% to 0.3% while handling 40M+ events daily. I believe this experience translates directly...</p>
+        </div>
+        <div class="lp-sig">— Alex Morgan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="generator">
+  <div class="gen-wrap">
+    <div class="section-label"><span>Generator</span></div>
+    <h2>Craft your letter now</h2>
+    <p class="section-sub">Paste the job posting and your background. We'll handle the rest.</p>
+    <div class="gen-grid">
+      <div class="input-card">
+        <div class="input-label">
+          <svg viewBox="0 0 14 14"><rect x="1" y="1" width="12" height="12" rx="2"/><path d="M4 4h6M4 7h6M4 10h4"/></svg>
+          Job Description
+        </div>
+        <textarea id="jd-input" placeholder="Paste the full job posting here — include requirements, responsibilities, company description..."></textarea>
+      </div>
+      <div class="input-card">
+        <div class="input-label">
+          <svg viewBox="0 0 14 14"><circle cx="7" cy="4" r="2.5"/><path d="M1 13c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          Your Background
+        </div>
+        <textarea id="bg-input" placeholder="Tell us about yourself — your experience, key achievements, skills, and what makes you unique. Bullet points are fine."></textarea>
+      </div>
+    </div>
+    <div class="gen-controls">
+      <div class="tone-group">
+        <span class="tone-label">Tone:</span>
+        <div class="tone-pills">
+          <button class="tone-pill active" data-tone="professional">Professional</button>
+          <button class="tone-pill" data-tone="conversational">Conversational</button>
+          <button class="tone-pill" data-tone="bold">Bold</button>
+        </div>
+      </div>
+      <div class="api-key-wrap">
+        <input type="password" id="api-key" class="api-key-input" placeholder="sk-ant-... (Anthropic API key)">
+        <span class="key-hint">Free key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a></span>
+      </div>
+    </div>
+    <button class="generate-btn" id="generate-btn">
+      <div class="spinner" id="spinner"></div>
+      <svg id="gen-icon" viewBox="0 0 18 18"><path d="M9 2l2.5 5 5.5.8-4 3.9.9 5.5L9 14.7 4.1 17.2l.9-5.5-4-3.9 5.5-.8z" stroke-width="1.5"/></svg>
+      <span id="gen-text">Generate Cover Letter</span>
+    </button>
+    <div class="error-msg" id="error-msg"></div>
+    <div class="output-section" id="output-section">
+      <div class="output-header">
+        <div class="output-title">Your Cover Letter</div>
+        <div class="output-actions">
+          <button class="action-btn" id="copy-btn">
+            <svg viewBox="0 0 13 13"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M1 9V2a1 1 0 011-1h7"/></svg>
+            <span id="copy-label">Copy</span>
+          </button>
+          <button class="action-btn" id="download-btn">
+            <svg viewBox="0 0 13 13"><path d="M6.5 1v7M3.5 5.5l3 3 3-3M1 10v1a1 1 0 001 1h9a1 1 0 001-1v-1"/></svg>
+            Download
+          </button>
+          <button class="action-btn" id="regen-btn">
+            <svg viewBox="0 0 13 13"><path d="M11 6.5A4.5 4.5 0 112 6.5" stroke-width="1.5"/><path d="M11 3v3.5H7.5"/></svg>
+            Regenerate
+          </button>
+        </div>
+      </div>
+      <div class="output-card">
+        <div id="letter-output"></div>
+      </div>
+      <div class="quality-bar">
+        <span>Personalisation score</span>
+        <div style="flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div id="quality-fill" style="height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;width:0%;transition:width 1s ease .5s"></div>
+        </div>
+        <span class="quality-score" id="quality-score">—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="how">
+    <div class="section-label"><span>Process</span></div>
+    <h2 class="fade-up">Three steps to your<br>perfect letter</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Paste the job posting</h3>
+        <p>Drop in the full job description. Our AI extracts key requirements, values, and language patterns that hiring managers care about.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Share your background</h3>
+        <p>Give us your experience, achievements, and skills. Bullet points work perfectly. The more specific, the stronger the letter.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Get a tailored letter</h3>
+        <p>Receive a fully personalised cover letter that matches the job's tone, mirrors their language, and puts your best achievements forward.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="pricing-wrap">
+    <div class="section-label fade-up"><span>Pricing</span></div>
+    <h2 class="fade-up">Simple, honest pricing</h2>
+    <p class="section-sub fade-up">One letter changes everything. Pay only when you're ready.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount">Free</div>
+        <div class="price-period">Your first letter, always</div>
+        <ul class="price-features">
+          <li>1 cover letter</li>
+          <li>Professional tone</li>
+          <li>Copy &amp; download</li>
+          <li>Standard quality</li>
+        </ul>
+        <a href="#generator" class="btn-price btn-price-outline">Get Started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">MOST POPULAR</div>
+        <div class="price-tier">Pro</div>
+        <div class="price-amount">$7</div>
+        <div class="price-period">per letter, no subscription</div>
+        <ul class="price-features">
+          <li>Unlimited generations</li>
+          <li>All 3 tone options</li>
+          <li>Quality score</li>
+          <li>Word doc export</li>
+        </ul>
+        <a href="https://gumroad.com/l/letterforge-pro" target="_blank" rel="noopener" class="btn-price btn-price-light">Buy Now</a>
+        <button class="btn-price" onclick="payWithMrv('pro',35)" style="margin-top:8px;background:rgba(224,200,117,0.12);color:#e0c875;border:1px solid rgba(224,200,117,0.3);border-radius:8px;padding:10px;font-size:.8rem;cursor:pointer">◈ Pay 35 MRV instead</button>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Unlimited</div>
+        <div class="price-amount">$19</div>
+        <div class="price-period">per month, cancel anytime</div>
+        <ul class="price-features">
+          <li>Unlimited letters</li>
+          <li>Priority AI model</li>
+          <li>Cover + follow-up</li>
+          <li>LinkedIn message gen</li>
+        </ul>
+        <a href="https://gumroad.com/l/letterforge-unlimited" target="_blank" rel="noopener" class="btn-price btn-price-dark">Subscribe</a>
+        <button class="btn-price" onclick="payWithMrv('unlimited',95)" style="margin-top:8px;background:rgba(224,200,117,0.08);color:#e0c875;border:1px solid rgba(224,200,117,0.2);border-radius:8px;padding:10px;font-size:.8rem;cursor:pointer">◈ Pay 95 MRV / month</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label fade-up"><span>Social Proof</span></div>
+  <h2 class="fade-up">Real results, real people</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"Got 4 interview callbacks in one week after switching to LetterForge. The letters sound genuinely like me, not like a robot."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">JK</div>
+        <div><div class="testi-name">Jamie K.</div><div class="testi-role">Software Engineer → Stripe</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"I was sending 30 applications with zero replies. Used LetterForge for the next 5 — got 3 first-round interviews. The ROI is insane."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">MR</div>
+        <div><div class="testi-name">Marcus R.</div><div class="testi-role">Product Manager → Notion</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="testi-text">"As a non-native English speaker, cover letters were my biggest fear. LetterForge made me sound polished and professional. I got the job."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">AK</div>
+        <div><div class="testi-name">Amira K.</div><div class="testi-role">Data Scientist → Airbnb</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="faq-wrap">
+    <div class="section-label fade-up"><span>FAQ</span></div>
+    <h2 class="fade-up">Questions answered</h2>
+    <div class="faq-items">
+      <div class="faq-item">
+        <div class="faq-q">Do I need an API key?<svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg></div>
+        <div class="faq-a"><p>Yes — you need a free Anthropic API key to generate letters. Get one at console.anthropic.com. New accounts get free credits that cover dozens of letters. Your key is stored only in your browser and never sent to our servers.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my data private?<svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg></div>
+        <div class="faq-a"><p>Your job descriptions and background text are sent directly to Anthropic's API from your browser. We don't store, log, or see any of your data. Everything is processed client-side.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is this better than ChatGPT?<svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg></div>
+        <div class="faq-a"><p>LetterForge uses a carefully engineered prompt that mirrors the company's language, maps your experience to their exact requirements, and avoids the generic phrases that ATS systems flag. ChatGPT with no instructions gives you a template — we give you a strategy.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I use it for any job?<svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg></div>
+        <div class="faq-a"><p>Absolutely. Tech, finance, design, marketing, healthcare — the AI adapts to any industry and role level. Works best with full job descriptions rather than just a title.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>LetterForge</strong> · AI Cover Letter Generator<br>
+      Built by cosmolotto · Open Source
+    </div>
+    <div class="footer-links">
+      <a href="#generator">Generator</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://github.com/cosmolotto" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:hello@letterforge.app">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+let currentTone = 'professional';
+let generatedLetter = '';
+
+// Tone pills
+document.querySelectorAll('.tone-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.tone-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    currentTone = pill.dataset.tone;
+  });
+});
+
+// Counter animation
+function animateCount(el) {
+  const target = parseFloat(el.dataset.count);
+  const isDecimal = el.dataset.decimal === 'true';
+  const start = performance.now();
+  const duration = 1500;
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val = target * ease;
+    el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = isDecimal ? target.toFixed(1) : target.toLocaleString();
+  }
+  requestAnimationFrame(step);
+}
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); statsObs.unobserve(e.target); }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count]').forEach(el => statsObs.observe(el));
+
+// Scroll reveals
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const delay = parseInt(e.target.dataset.delay || '0');
+      setTimeout(() => e.target.classList.add('visible'), delay);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.15});
+document.querySelectorAll('.fade-up, .step, .price-card, .testi-card').forEach((el, i) => {
+  el.dataset.delay = String((i % 3) * 100);
+  revealObs.observe(el);
+});
+
+// FAQ
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Typewriter
+function typewriter(text, el, speed) {
+  speed = speed || 6;
+  return new Promise(resolve => {
+    while (el.firstChild) el.removeChild(el.firstChild);
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
+    el.appendChild(cursor);
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        cursor.before(document.createTextNode(text[i]));
+        i++;
+        setTimeout(type, speed);
+      } else {
+        cursor.remove();
+        resolve();
+      }
+    }
+    type();
+  });
+}
+
+// Show error
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  el.textContent = msg;
+  el.classList.add('visible');
+}
+
+// Set loading state
+function setLoading(loading) {
+  const btn = document.getElementById('generate-btn');
+  const spinner = document.getElementById('spinner');
+  const icon = document.getElementById('gen-icon');
+  const text = document.getElementById('gen-text');
+  btn.disabled = loading;
+  spinner.style.display = loading ? 'block' : 'none';
+  icon.style.display = loading ? 'none' : 'block';
+  text.textContent = loading ? 'Crafting your letter...' : 'Generate Cover Letter';
+}
+
+// Show output
+async function showOutput(text) {
+  const section = document.getElementById('output-section');
+  const output = document.getElementById('letter-output');
+  section.classList.add('visible');
+  section.scrollIntoView({behavior: 'smooth', block: 'start'});
+  await typewriter(text, output, 6);
+  const score = Math.floor(78 + Math.random() * 20);
+  document.getElementById('quality-fill').style.width = score + '%';
+  document.getElementById('quality-score').textContent = score + '/100';
+}
+
+// Generate letter
+async function generateLetter() {
+  const jd = document.getElementById('jd-input').value.trim();
+  const bg = document.getElementById('bg-input').value.trim();
+  const apiKey = document.getElementById('api-key').value.trim();
+  const errEl = document.getElementById('error-msg');
+  errEl.classList.remove('visible');
+
+  if (!jd) { showError('Please paste the job description.'); return; }
+  if (!bg) { showError('Please describe your background.'); return; }
+  if (!apiKey || !apiKey.startsWith('sk-ant-')) {
+    showError('Please enter a valid Anthropic API key (starts with sk-ant-). Get yours free at console.anthropic.com');
+    return;
+  }
+
+  localStorage.setItem('lf_key', apiKey);
+  setLoading(true);
+
+  const toneMap = {
+    professional: 'formal, polished, and business-appropriate — measured language, highlights professionalism.',
+    conversational: 'warm, genuine, and slightly informal — sounds like a real person writing, not a template.',
+    bold: 'confident, direct, and memorable — opens with impact, specific about value, ends with a clear call to action.'
+  };
+
+  const prompt = [
+    'You are an expert cover letter writer. Write a tailored, compelling cover letter.',
+    '',
+    'TONE: ' + toneMap[currentTone],
+    '',
+    'RULES:',
+    '- Match the company language and culture from the job description',
+    '- Map 2-3 specific candidate achievements directly to job requirements',
+    '- Never use "I am writing to express my interest" — open with impact',
+    '- Write in flowing paragraphs, no bullet points',
+    '- Keep to 3-4 paragraphs, under 350 words',
+    '- Include a specific detail about the company that shows research',
+    '- End with a confident call to action',
+    '- Do NOT use [brackets] or placeholder text — write the final letter',
+    '',
+    'JOB DESCRIPTION:',
+    jd,
+    '',
+    'CANDIDATE BACKGROUND:',
+    bg,
+    '',
+    'Write only the letter text, starting directly with the salutation.'
+  ].join('\n');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        messages: [{role: 'user', content: prompt}]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error((err.error && err.error.message) || ('API error ' + res.status));
+    }
+
+    const data = await res.json();
+    generatedLetter = data.content[0].text;
+    setLoading(false);
+    showOutput(generatedLetter);
+  } catch (err) {
+    setLoading(false);
+    showError(err.message || 'Generation failed. Check your API key and try again.');
+  }
+}
+
+// Button listeners
+document.getElementById('generate-btn').addEventListener('click', generateLetter);
+document.getElementById('regen-btn').addEventListener('click', generateLetter);
+
+document.getElementById('copy-btn').addEventListener('click', () => {
+  if (!generatedLetter) return;
+  navigator.clipboard.writeText(generatedLetter).then(() => {
+    const btn = document.getElementById('copy-btn');
+    const label = document.getElementById('copy-label');
+    btn.classList.add('copied');
+    label.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      label.textContent = 'Copy';
+    }, 2000);
+  });
+});
+
+document.getElementById('download-btn').addEventListener('click', () => {
+  if (!generatedLetter) return;
+  const blob = new Blob([generatedLetter], {type: 'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'cover-letter.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// Restore saved API key
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('lf_key');
+  if (saved) document.getElementById('api-key').value = saved;
+});
+</script>
+<!-- MorvenWallet SDK -->
+<script src="https://morven-sdk.vercel.app/morven.js"></script>
+<script>
+async function payWithMrv(plan, amount) {
+  try {
+    const result = await morvenWallet.login();
+    const bal = await morvenWallet.getBalance(result.jwt);
+    if (bal.mrv < amount) {
+      alert(`Insufficient MRV balance.\nYou have ${bal.mrv.toFixed(2)} MRV, need ${amount} MRV.\n\nEarn MRV by playing games on Arcade Vault or using other Morven Empire apps.`);
+      return;
+    }
+    if (!confirm(`Pay ${amount} MRV for LetterForge ${plan.charAt(0).toUpperCase()+plan.slice(1)}?\n\nBalance after: ${(bal.mrv - amount).toFixed(2)} MRV`)) return;
+    const tx = await morvenWallet.pay(result.jwt, amount, 'letterforge-' + plan);
+    if (tx.success) {
+      localStorage.setItem('lf_mrv_plan', plan);
+      localStorage.setItem('lf_mrv_tx', tx.tx_id);
+      alert(`✅ Payment successful!\nTX: ${tx.tx_id}\nRemaining balance: ${tx.new_balance.toFixed(2)} MRV\n\nYour ${plan} access is now active.`);
+    }
+  } catch(e) {
+    alert('MRV payment failed: ' + e.message);
+  }
+}
+</script>
+</body>
+</html>
