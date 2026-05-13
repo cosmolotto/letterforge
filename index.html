@@ -200,6 +200,7 @@ footer{border-top:1px solid var(--border);padding:40px max(24px,5vw);background:
       <a href="#generator">Generator</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <span id="nav-mrv-bal" style="display:none;font-size:.78rem;font-weight:600;color:#e0c875;background:rgba(224,200,117,0.12);border:1px solid rgba(224,200,117,0.3);padding:6px 12px;border-radius:100px">◈ <span id="nav-mrv-bal-val">—</span> MRV</span>
       <a href="#generator" class="btn-nav">Try Free</a>
     </nav>
   </div>
@@ -692,6 +693,17 @@ window.addEventListener('load', () => {
 <!-- MorvenWallet SDK -->
 <script src="https://morven-sdk.vercel.app/morven.js"></script>
 <script>
+const MORVEN_API = 'https://morven-wallet-api.onrender.com';
+
+async function refreshNavBalance() {
+  try {
+    if (typeof morvenWallet === 'undefined') return;
+    const bal = await morvenWallet.getBalance();
+    document.getElementById('nav-mrv-bal-val').textContent = parseFloat(bal.mrv || 0).toFixed(1);
+    document.getElementById('nav-mrv-bal').style.display = 'inline-flex';
+  } catch (e) { /* not logged in */ }
+}
+
 async function payWithMrv(plan, amount) {
   try {
     const result = await morvenWallet.login();
@@ -706,11 +718,73 @@ async function payWithMrv(plan, amount) {
       localStorage.setItem('lf_mrv_plan', plan);
       localStorage.setItem('lf_mrv_tx', tx.tx_id);
       alert(`✅ Payment successful!\nTX: ${tx.tx_id}\nRemaining balance: ${tx.new_balance.toFixed(2)} MRV\n\nYour ${plan} access is now active.`);
+      refreshNavBalance();
     }
   } catch(e) {
     alert('MRV payment failed: ' + e.message);
   }
 }
+
+/* Earn 2 MRV bonus for first generated letter */
+async function claimFirstLetterBonus() {
+  const btn = document.getElementById('first-letter-bonus-btn');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.textContent = 'Connecting wallet…';
+  try {
+    const result = await morvenWallet.login();
+    const wallet = (result.user && (result.user.wallet_id || result.user.email)) || 'unknown';
+    const r = await fetch(MORVEN_API + '/api/airdrop', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to: wallet, amount: 2, reason: 'letterforge_first_letter' })
+    }).catch(() => null);
+    if (r && r.ok) {
+      localStorage.setItem('lf_first_letter_bonus', '1');
+      btn.textContent = '✓ +2 MRV claimed';
+      refreshNavBalance();
+    } else {
+      btn.textContent = 'Bonus pending — try again later';
+      btn.disabled = false;
+    }
+  } catch (e) {
+    btn.textContent = 'Retry bonus';
+    btn.disabled = false;
+  }
+}
+
+function showFirstLetterBonusIfEligible() {
+  if (localStorage.getItem('lf_first_letter_bonus')) return;
+  const out = document.getElementById('output');
+  if (!out || !out.textContent || out.textContent.length < 50) return;
+  if (document.getElementById('first-letter-bonus-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'first-letter-bonus-banner';
+  banner.style.cssText = 'margin-top:16px;padding:14px 18px;background:rgba(224,200,117,0.1);border:1px solid rgba(224,200,117,0.3);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem';
+  const text = document.createElement('span');
+  const sigil = document.createTextNode('◈ ');
+  const strong = document.createElement('strong');
+  strong.textContent = 'First letter bonus:';
+  const tail = document.createTextNode(' claim 2 MRV for your wallet');
+  text.appendChild(sigil);
+  text.appendChild(strong);
+  text.appendChild(tail);
+  const btn = document.createElement('button');
+  btn.id = 'first-letter-bonus-btn';
+  btn.textContent = 'Claim 2 MRV';
+  btn.style.cssText = 'padding:8px 14px;background:#e0c875;color:#1a1a1a;border:none;border-radius:6px;font-weight:600;cursor:pointer';
+  btn.onclick = claimFirstLetterBonus;
+  banner.appendChild(text);
+  banner.appendChild(btn);
+  out.parentNode.appendChild(banner);
+}
+
+const _origGenObserver = new MutationObserver(showFirstLetterBonusIfEligible);
+window.addEventListener('DOMContentLoaded', () => {
+  const out = document.getElementById('output');
+  if (out) _origGenObserver.observe(out, { childList: true, characterData: true, subtree: true });
+  refreshNavBalance();
+});
 </script>
 </body>
 </html>
